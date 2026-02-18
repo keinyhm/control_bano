@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+
+# Odoo data volumes (NO subir a git)
+odoo-db-data/
+odoo-web-data/
+
+# Logs
+*.log
+
+# Postgres
+*.sql
+
+
+
+

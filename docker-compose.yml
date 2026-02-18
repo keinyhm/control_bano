@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: odoo-db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    networks:
+      - odoo-net
+
+  odoo:
+    image: odoo:17
+    container_name: odoo-app
+    command: ["odoo", "-d", "odoo-db", "--dev=assets"]
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - ODOO_DEV_MODE=assets  
+      - LOG_LEVEL=debug_sql
+ 
+
+    volumes:
+      - "C:\\Users\\keiny\\Odoo\\odoo_config:/etc/odoo"
+      - "C:\\Users\\keiny\\Odoo\\odoo_addons:/mnt/extra-addons"
+      - odoo-web-data:/var/lib/odoo
+    networks:
+      - odoo-net
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:
+
+networks:
+  odoo-net:
+    driver: bridge
