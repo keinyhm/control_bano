@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- GRAPH: Nº de visitas por Etapa -->
+    <record id="control_bano_visit_graph_stage" model="ir.ui.view">
+        <field name="name">control_bano.visit.graph.stage</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <graph string="Visitas por etapa" type="bar">
+                <field name="stage" type="row"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- GRAPH: Duración media por Curso (texto) -->
+    <record id="control_bano_visit_graph_duration" model="ir.ui.view">
+        <field name="name">control_bano.visit.graph.duration</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <graph string="Duración (min) por curso" type="bar">
+                <field name="course_display" type="row"/>
+                <field name="duration_minutes" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- GRAPH: Visitas por día -->
+    <record id="control_bano_visit_graph_day" model="ir.ui.view">
+        <field name="name">control_bano.visit.graph.day</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <graph string="Visitas por día" type="line">
+                <field name="start_dt" type="row" interval="day"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- PIVOT: Resumen -->
+    <record id="control_bano_visit_pivot" model="ir.ui.view">
+        <field name="name">control_bano.visit.pivot</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <pivot string="Resumen de visitas">
+                <field name="stage" type="row"/>
+                <field name="course_display" type="row"/>
+                <field name="state" type="col"/>
+                <field name="id" type="measure"/>
+                <field name="duration_minutes" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ACTION: Estadísticas -->
+    <record id="control_bano_visit_stats_action" model="ir.actions.act_window">
+        <field name="name">Estadísticas</field>
+        <field name="res_model">control_bano.visit</field>
+        <field name="view_mode">graph,pivot,tree</field>
+        <!-- Vista por defecto: gráfico por etapa -->
+        <field name="view_id" ref="control_bano_visit_graph_stage"/>
+        <field name="context">{'search_default_group_stage': 1}</field>
+    </record>
+
+</odoo>

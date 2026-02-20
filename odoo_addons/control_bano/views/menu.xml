@@ -7,4 +7,10 @@
               parent="control_bano_root"
               action="control_bano_visit_action"
               sequence="10"/>
+              
+    <menuitem id="control_bano_menu_stats"
+          name="Estadísticas"
+          parent="control_bano_root"
+          action="control_bano_visit_stats_action"
+          sequence="20"/>
 </odoo>
