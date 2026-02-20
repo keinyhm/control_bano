@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="control_bano_root" name="Control baño" sequence="10"/>
+
+    <menuitem id="control_bano_menu_visits"
+              name="Visitas"
+              parent="control_bano_root"
+              action="control_bano_visit_action"
+              sequence="10"/>
+</odoo>

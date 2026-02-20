@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_centro_incidencia_list" model="ir.ui.view">
+    <field name="name">centro.incidencia.tree</field>
+    <field name="model">centro.incidencia</field>
+    <field name="arch" type="xml">
+      <tree>
+        <header>
+          <button name="action_print_report"
+                  type="object"
+                  string="Exportar PDF"
+                  class="btn-primary"
+                  display="always"/>
+        </header>
+
+        <field name="name"/>
+        <field name="state"/>
+        <field name="date"/>
+      </tree>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_centro_incidencia_form" model="ir.ui.view">
+        <field name="name">centro.incidencia.form</field>
+        <field name="model">centro.incidencia</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                     <button name="%(centro_incidencias_demo.action_report_incidencias)d"
+                            type="action"
+                            string="Exportar PDF"
+                            class="btn-primary"/>
+
+                    <button name="action_in_progress"
+                            type="object"
+                            string="En proceso"
+                            modifiers="{'invisible': [['state','!=','open']]}"/>
+
+                    <button name="action_close"
+                            type="object"
+                            string="Cerrar"
+                            modifiers="{'invisible': [['state','!=','in_progress']]}"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="open,in_progress,closed"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

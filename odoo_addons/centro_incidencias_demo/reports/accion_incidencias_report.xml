@@ -1,0 +1,15 @@
+<odoo>
+  <record id="action_report_incidencias" model="ir.actions.report">
+    <field name="name">Informe de incidencias</field>
+    <field name="model">centro.incidencia</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">centro_incidencias_demo.informe_incidencias</field>
+    <field name="report_file">centro_incidencias_demo.informe_incidencias</field>
+
+    <field name="binding_model_id" ref="model_centro_incidencia"/>
+    <field name="binding_type">report</field>
+
+    <!-- ESTA ES LA CLAVE -->
+    <field name="binding_view_types">list,form</field>
+  </record>
+</odoo>

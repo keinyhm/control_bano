@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!--
+    Plantilla QWeb principal del informe de incidencias.
+    El atributo t-name debe coincidir con el que se use
+    en la acción ir.actions.report.
+    -->
+    <template id="informe_incidencias"
+              t-name="centro_incidencias_demo.informe_incidencias">
+
+        <!-- CONTENEDOR RAÍZ OBLIGATORIO PARA Odoo 18 -->
+        <t t-call="web.html_container">
+
+            <!-- Layout estándar (cabecera y pie) -->
+            <t t-call="web.external_layout">
+
+                <!-- Contenedor principal del informe -->
+                <div class="page">
+
+                    <!-- Título del informe -->
+                    <h2>Informe de incidencias</h2>
+
+                    <!-- Fecha de generación -->
+                    <p>
+                        <strong>Fecha:</strong>
+                        <span t-out="context_timestamp(datetime.datetime.now())"
+                          t-options='{"widget": "date"}'/>
+
+                    </p>
+
+                    <!-- Tabla con los datos -->
+                    <table class="table table-sm table-bordered">
+
+                        <!-- Cabecera de la tabla -->
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Título</th>
+                                <th>Estado</th>
+                                <th>Fecha de creación</th>
+                            </tr>
+                        </thead>
+
+                        <!-- Cuerpo de la tabla -->
+                        <tbody>
+
+                            <!--
+                            docs es el recordset que Odoo pasa automáticamente
+                            desde report_action(self)
+                            -->
+                            <t t-foreach="docs" t-as="incidencia">
+                                <tr>
+                                    <td>
+                                        <t t-esc="incidencia.id"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="incidencia.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="incidencia.state_label"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="incidencia.create_date"
+                                              t-options='{"widget": "date"}'/>
+                                    </td>
+                                </tr>
+                            </t>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

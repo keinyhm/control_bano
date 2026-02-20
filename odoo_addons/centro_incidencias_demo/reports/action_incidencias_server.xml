@@ -1,0 +1,12 @@
+<odoo>
+  <record id="action_export_incidencias_pdf" model="ir.actions.server">
+    <field name="name">Exportar PDF</field>
+    <field name="model_id" ref="model_centro_incidencia"/>
+    <field name="binding_model_id" ref="model_centro_incidencia"/>
+    <field name="binding_type">action</field>
+    <field name="state">code</field>
+    <field name="code">
+action = env.ref('centro_incidencias_demo.action_report_incidencias').report_action(records)
+    </field>
+  </record>
+</odoo>

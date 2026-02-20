@@ -1,0 +1,17 @@
+<odoo>
+    <record id="action_centro_incidencia" model="ir.actions.act_window">
+        <field name="name">Incidencias</field>
+        <field name="res_model">centro.incidencia</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_centro_incidencia_list"/>
+
+    </record>
+
+    <menuitem id="menu_centro_root" name="Centro"/>
+
+    <menuitem id="menu_centro_incidencia"
+              name="Incidencias"
+              parent="menu_centro_root"
+              action="action_centro_incidencia"/>
+</odoo>

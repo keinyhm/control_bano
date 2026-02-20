@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- TREE -->
+    <record id="control_bano_visit_tree" model="ir.ui.view">
+        <field name="name">control_bano.visit.tree</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_name"/>
+                <field name="course_display"/>
+                <field name="start_dt"/>
+                <field name="end_dt"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record id="control_bano_visit_form" model="ir.ui.view">
+        <field name="name">control_bano.visit.form</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- Botones de flujo -->
+                    <button name="action_start"
+                            string="Iniciar"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_finish"
+                            string="Finalizar"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'in_progress'"/>
+
+                    <button name="action_cancel"
+                            string="Cancelar"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state in ('done','cancelled')"/>
+
+                    <!-- Barra de estado (visual) -->
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,in_progress,done,cancelled"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="student_name" readonly="state in ('done','cancelled')"/>
+                        <field name="stage" readonly="state in ('done','cancelled')"/>
+
+                        <field name="eso_level"
+                               invisible="stage != 'eso'"
+                               readonly="state in ('done','cancelled')"/>
+
+                        <field name="year_12"
+                               invisible="stage == 'eso'"
+                               readonly="state in ('done','cancelled')"/>
+
+                        <field name="group" readonly="state in ('done','cancelled')"/>
+
+                        <field name="itinerary"
+                               invisible="stage != 'bach'"
+                               readonly="state in ('done','cancelled')"/>
+
+                        <field name="course_display" readonly="1"/>
+
+                        <!-- Fechas editables mientras NO esté finalizada/cancelada -->
+                        <field name="start_dt" readonly="state in ('done','cancelled')"/>
+                        <field name="end_dt" readonly="state in ('done','cancelled')"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH (modo seguro) -->
+    <record id="control_bano_visit_search" model="ir.ui.view">
+        <field name="name">control_bano.visit.search</field>
+        <field name="model">control_bano.visit</field>
+        <field name="arch" type="xml">
+            <search string="Buscar visitas">
+                <field name="student_name"/>
+                <field name="stage"/>
+                <field name="eso_level"/>
+                <field name="year_12"/>
+                <field name="group"/>
+                <field name="itinerary"/>
+
+                <separator/>
+
+                <filter name="in_progress" string="En curso" domain="[('state','=','in_progress')]"/>
+                <filter name="done" string="Finalizadas" domain="[('state','=','done')]"/>
+
+                <separator/>
+
+                <filter name="eso1a" string="1º ESO A"
+                        domain="[('stage','=','eso'),('eso_level','=','1'),('group','=','A')]"/>
+
+                <filter name="fpb1" string="FP Básica 1º"
+                        domain="[('stage','=','fp_basica'),('year_12','=','1')]"/>
+
+                <filter name="bach_ciencias" string="Bach Ciencias"
+                        domain="[('stage','=','bach'),('itinerary','=','ciencias')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="control_bano_visit_action" model="ir.actions.act_window">
+        <field name="name">Visitas al baño</field>
+        <field name="res_model">control_bano.visit</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

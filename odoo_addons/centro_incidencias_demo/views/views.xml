@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="centro_incidencias_demo.list">
+      <field name="name">centro_incidencias_demo list</field>
+      <field name="model">centro_incidencias_demo.centro_incidencias_demo</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="centro_incidencias_demo.action_window">
+      <field name="name">centro_incidencias_demo window</field>
+      <field name="res_model">centro_incidencias_demo.centro_incidencias_demo</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="centro_incidencias_demo.action_server">
+      <field name="name">centro_incidencias_demo server</field>
+      <field name="model_id" ref="model_centro_incidencias_demo_centro_incidencias_demo"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="centro_incidencias_demo" id="centro_incidencias_demo.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="centro_incidencias_demo.menu_1" parent="centro_incidencias_demo.menu_root"/>
+    <menuitem name="Menu 2" id="centro_incidencias_demo.menu_2" parent="centro_incidencias_demo.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="centro_incidencias_demo.menu_1_list" parent="centro_incidencias_demo.menu_1"
+              action="centro_incidencias_demo.action_window"/>
+    <menuitem name="Server to list" id="centro_incidencias_demo" parent="centro_incidencias_demo.menu_2"
+              action="centro_incidencias_demo.action_server"/>
+-->
+  </data>
+</odoo>
