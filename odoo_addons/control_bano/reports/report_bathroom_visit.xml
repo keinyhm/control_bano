@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_bathroom_visit">
+        <t t-call="control_bano.report_bathroom_visits"/>
+    </template>
+
+    <template id="report_bathroom_visits">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <h3 t-field="res_company.name"/>
+                            <div t-if="res_company.street"><span t-field="res_company.street"/></div>
+                            <div t-if="res_company.email"><span t-field="res_company.email"/></div>
+                            <div t-if="res_company.phone"><span t-field="res_company.phone"/></div>
+                        </div>
+                        <div class="col-6 text-end">
+                            <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 45px;" alt="Logo"/>
+                        </div>
+                    </div>
+
+                    <hr/>
+                    <h2>Histórico de visitas al baño</h2>
+
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Alumno/a</th>
+                                <th>Curso</th>
+                                <th>Salida</th>
+                                <th>Vuelta</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <tr>
+                                    <td><t t-esc="o.student_name"/></td>
+                                    <td><t t-esc="o.course_display"/></td>
+                                    <td><t t-esc="o.start_dt or ''"/></td>
+                                    <td><t t-esc="o.end_dt or ''"/></td>
+                                    <td><t t-esc="dict(o._fields['state'].selection).get(o.state)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

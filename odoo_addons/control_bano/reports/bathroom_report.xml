@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_bathroom_visits" model="ir.actions.report">
+        <field name="name">Exportar PDF</field>
+        
+        <field name="model">control_bano.visit</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">control_bano.report_bathroom_visit</field>
+        <field name="report_file">control_bano.report_bathroom_visit</field>
+
+        <field name="print_report_name">'historial_visitas_bano'</field>
+
+        <field name="binding_model_id" ref="model_control_bano_visit"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -6,7 +6,12 @@
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
+
+        "reports/bathroom_report.xml",
+        "reports/report_bathroom_visit.xml",
+        
         "views/bathroom_views.xml",
+        "views/bathroom_actions.xml",
         "views/bathroom_stats_views.xml",
         "views/menu.xml",
     ],

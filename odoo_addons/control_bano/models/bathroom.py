@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 
 class BathroomVisit(models.Model):
@@ -7,7 +8,9 @@ class BathroomVisit(models.Model):
     _description = "Visita al baño"
     _order = "start_dt desc, id desc"
 
-    student_name = fields.Char(string="Alumno/a", required=True)
+    #student_name = fields.Char(string="Alumno/a", required=True)
+
+    student_id = fields.Many2one('res.partner', string="Alumno/a (Contacto)", required=True)
 
     stage = fields.Selection(
         [
@@ -190,3 +193,35 @@ class BathroomVisit(models.Model):
             if rec.state in ("done", "cancelled"):
                 raise ValidationError(_("No se puede eliminar una visita finalizada o cancelada."))
         return super().unlink()
+
+
+    def action_done_all(self):
+            """Lógica de servidor para finalizar visitas masivamente (Fase 5)"""
+            # Filtramos solo las que están 'in_progress' para no dar error de validación
+            records_to_close = self.filtered(lambda r: r.state == 'in_progress')
+            for record in records_to_close:
+                record.write({
+                    'state': 'done',
+                    'end_dt': fields.Datetime.now()
+                })
+            return True
+
+    @api.constrains('student_name', 'state')
+    def _check_active_visit(self):
+        """Integración/Lógica: Evita que un alumno tenga dos visitas abiertas a la vez"""
+        for r in self:
+            if r.state == 'in_progress':
+                already_out = self.search([
+                    ('student_name', '=', r.student_name),
+                    ('state', '=', 'in_progress'),
+                    ('id', '!=', r.id)
+                ])
+                if already_out:
+                    raise ValidationError(_("El alumno %s ya tiene una visita en curso.") % r.student_name)
+
+    def action_import_validation(self):
+        """Lógica para validar datos integrados desde fuentes externas"""
+        for record in self:
+            if not record.student_name:
+                continue
+            record.student_name = record.student_name.strip().title()
